@@ -1,0 +1,15 @@
+work/
+transcript
+vsim.wlf
+*.wlf
+*.ini
+*.mti
+*.dat
+*.log
+*.db
+*.bak
+
+wave.do
+*.vstf
+*.vcd
+*.ucdb
