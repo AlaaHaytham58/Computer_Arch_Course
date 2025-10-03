@@ -1,7 +1,7 @@
 library ieee;
 use ieee.std_logic_1164.all;
 
-entity alu is
+entity ALU_D is
     port(
         A,B  : in  std_logic_vector(15 downto 0);
         S    : in  std_logic_vector(3 downto 0);
@@ -9,9 +9,9 @@ entity alu is
         F    : out std_logic_vector(15 downto 0);
         Cout : out std_logic
     );
-end alu;
+end ALU_D;
 
-architecture Part_d of alu is
+architecture Part_d of ALU_D is
 begin
     process(A, B, S, Cin)
     begin

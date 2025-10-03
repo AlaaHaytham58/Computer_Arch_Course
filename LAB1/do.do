@@ -1,34 +1,144 @@
-# Open the simulation for the entity named "alu"
-vsim -gui work.alu
+#this line is a comment
+#this command open the simulation for the entity named "myand"
+vsim -gui work.alu_top
+#add the signals you want to test in the wave
+add wave -position insertpoint  \
+sim:/alu_top/S \
+sim:/alu_top/A \
+sim:/alu_top/B \
+sim:/alu_top/Cin \
+sim:/alu_top/F \
+sim:/alu_top/F_B \
+sim:/alu_top/F_C \
+sim:/alu_top/F_D \
+sim:/alu_top/Cout \
 
-# Add the signals you want to test in the wave
-add wave -position insertpoint \
-sim:/alu/A \
-sim:/alu/B \
-sim:/alu/S \
-sim:/alu/F \
-sim:/alu/Cout
+#for value 1 on a and 1 on b
+force -freeze sim:/alu_top/S 4'b1000
+force -freeze sim:/alu_top/A 16'hA00A
+force -freeze sim:/alu_top/B 16'h000B
+force -freeze sim:/alu_top/Cin 1'b1
+#run simulation and see what happens
+run
 
-# Test vector 1: A = 1, B = 1, S = "0101" (AND)
-force -freeze sim:/alu/A 16#0001 0
-force -freeze sim:/alu/B 16#0001 0
-force -freeze sim:/alu/S "0101" 0
-run 10 ns
+#for value 1 on a and 1 on b
+force -freeze sim:/alu_top/S 4'b1000
+force -freeze sim:/alu_top/A 16'h000A
+force -freeze sim:/alu_top/B 16'h000B
+force -freeze sim:/alu_top/Cin 1'b1
+#run simulation and see what happens
+run
 
-# Test vector 2: A = 0, B = 1, S = "0100" (OR)
-force -freeze sim:/alu/A 16#0000 0
-force -freeze sim:/alu/B 16#0001 0
-force -freeze sim:/alu/S "0100" 0
-run 10 ns
+#for value 1 on a and 1 on b
+force -freeze sim:/alu_top/S 4'b1001
+force -freeze sim:/alu_top/A 16'hB00C
+force -freeze sim:/alu_top/B 16'h000B
+force -freeze sim:/alu_top/Cin 1'b1
+#run simulation and see what happens
+run
 
-# Test vector 3: A = 1, B = 0, S = "0110" (NOR)
-force -freeze sim:/alu/A 16#0001 0
-force -freeze sim:/alu/B 16#0000 0
-force -freeze sim:/alu/S "0110" 0
-run 10 ns
+#for value 1 on a and 1 on b
+force -freeze sim:/alu_top/S 4'b1001
+force -freeze sim:/alu_top/A 16'h000C
+force -freeze sim:/alu_top/B 16'h000B
+force -freeze sim:/alu_top/Cin 1'b1
+#run simulation and see what happens
+run
 
-# Test vector 4: A = 0, B = 0, S = "0111" (NOT A)
-force -freeze sim:/alu/A 16#0000 0
-force -freeze sim:/alu/B 16#0000 0
-force -freeze sim:/alu/S "0111" 0
-run 10 ns
+#for value 1 on a and 1 on b
+force -freeze sim:/alu_top/S 4'b1010
+force -freeze sim:/alu_top/A 16'hA00A
+force -freeze sim:/alu_top/B 16'h000B
+force -freeze sim:/alu_top/Cin 1'b0
+#run simulation and see what happens
+run
+
+
+#for value 1 on a and 1 on b
+force -freeze sim:/alu_top/S 4'b1010
+force -freeze sim:/alu_top/A 16'hA00A
+force -freeze sim:/alu_top/B 16'h000B
+force -freeze sim:/alu_top/Cin 1'b1
+#run simulation and see what happens
+run
+
+
+#for value 1 on a and 1 on b
+force -freeze sim:/alu_top/S 4'b1011
+force -freeze sim:/alu_top/A 16'hA00A
+force -freeze sim:/alu_top/B 16'h000B
+force -freeze sim:/alu_top/Cin 1'b0
+#run simulation and see what happens
+run
+
+#for value 1 on a and 1 on b
+force -freeze sim:/alu_top/S 4'b0000
+force -freeze sim:/alu_top/A 16'h0000
+force -freeze sim:/alu_top/B 16'h0000
+force -freeze sim:/alu_top/Cin 1'b0
+#run simulation and see what happens
+run
+
+#for value 1 on a and 1 on b
+force -freeze sim:/alu_top/S 4'b1100
+force -freeze sim:/alu_top/A 16'h000F
+force -freeze sim:/alu_top/B 16'h0000
+force -freeze sim:/alu_top/Cin 1'b0
+#run simulation and see what happens
+run
+
+#for value 1 on a and 1 on b
+force -freeze sim:/alu_top/S 4'b1101
+force -freeze sim:/alu_top/A 16'h0F0F
+force -freeze sim:/alu_top/B 16'h0000
+force -freeze sim:/alu_top/Cin 1'b0
+#run simulation and see what happens
+run
+
+#for value 1 on a and 1 on b
+force -freeze sim:/alu_top/S 4'b1110
+force -freeze sim:/alu_top/A 16'h0F0F
+force -freeze sim:/alu_top/B 16'h0000
+force -freeze sim:/alu_top/Cin 1'b0
+#run simulation and see what happens
+run
+
+#for value 1 on a and 1 on b
+force -freeze sim:/alu_top/S 4'b1111
+force -freeze sim:/alu_top/A 16'hF000
+force -freeze sim:/alu_top/B 16'h0000
+force -freeze sim:/alu_top/Cin 1'b0
+#run simulation and see what happens
+run
+
+#for value 1 on a and 1 on b
+force -freeze sim:/alu_top/S 4'b1110
+force -freeze sim:/alu_top/A 16'h0F00
+force -freeze sim:/alu_top/B 16'h0000
+force -freeze sim:/alu_top/Cin 1'b1
+#run simulation and see what happens
+run
+# Test ALU_B OR operation
+force -freeze sim:/alu_top/S 4'b0100
+force -freeze sim:/alu_top/A 16'h00FF
+force -freeze sim:/alu_top/B 16'h0F0F
+run
+
+# Test ALU_B AND operation
+force -freeze sim:/alu_top/S 4'b0101
+force -freeze sim:/alu_top/A 16'h00FF
+force -freeze sim:/alu_top/B 16'h0F0F
+run
+
+# Test ALU_B NOR operation
+force -freeze sim:/alu_top/S 4'b0110
+force -freeze sim:/alu_top/A 16'h00FF
+force -freeze sim:/alu_top/B 16'h0F0F
+run
+
+# Test ALU_B NOT operation
+force -freeze sim:/alu_top/S 4'b0111
+force -freeze sim:/alu_top/A 16'h00FF
+run
+
+

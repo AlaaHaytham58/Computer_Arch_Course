@@ -8,6 +8,7 @@ vsim.wlf
 *.log
 *.db
 *.bak
+*.mpf
 
 wave.do
 *.vstf
