@@ -1,9 +1,10 @@
 Library ieee;
 use ieee.std_logic_1164.all;
 ENTITY ALU_B IS
-    PORT(A,B: IN std_logic_vector(15 DOWNTO 0);
+generic (N : integer := 16);
+    PORT(A,B: IN std_logic_vector(N-1 DOWNTO 0);
     S: IN std_logic_vector(3 DOWNTO 0);
-    F: OUT std_logic_vector(15 DOWNTO 0);
+    F: OUT std_logic_vector(N-1 DOWNTO 0);
     Cout: OUT std_logic);
 END ALU_B;
 
