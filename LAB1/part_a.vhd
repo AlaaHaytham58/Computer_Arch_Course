@@ -29,7 +29,7 @@ architecture behavioral of ALU_A is
     );
   end component;
   
-  signal localCin : std_logic;  -- corrected Cin to send into adder
+  signal localCin : std_logic; 
 
 begin
   process(A, B, S, Cin)
@@ -49,22 +49,21 @@ begin
       when "0001" =>
         Ain <= A;
         Bin <= not B;
-        -- To make Cin=0 → A-B, Cin=1 → A-B-1
         if Cin = '0' then
-          localCin <= '1';   -- do A + NOT(B) + 1
+          localCin <= '1';   
         else
-          localCin <= '0';   -- do A + NOT(B) + 0
+          localCin <= '0';   
         end if;
 
       -- F=A-B+1 (Cin=0) or F=A+B+1 (Cin=1)
       when "0010" =>
         Ain <= A;
         if Cin = '0' then
-          Bin <= not B;
-          localCin <= '1';   -- A + NOT(B) + 1 = A-B+1
+          Bin <= std_logic_vector(unsigned(not B) + 1);
+          localCin <= '1';
         else
           Bin <= B;
-          localCin <= '1';   -- A + B + 1
+          localCin <= '1';  
         end if;
 
       -- F=A-1 (Cin=0) or F=B+1 (Cin=1)
@@ -72,11 +71,11 @@ begin
         if Cin = '0' then
           Ain <= A;
           Bin <= (others => '1');
-          localCin <= '0';   -- A + (111..1) + 0 = A-1
+          localCin <= '0';   
         else
           Ain <= (others => '0');
           Bin <= B;
-          localCin <= '1';   -- 0 + B + 1 = B+1
+          localCin <= '1'; 
         end if;
 
       when others =>
@@ -86,7 +85,7 @@ begin
     end case;
   end process;
 
-  -- single generic adder instance
+  
   U_ADDER: n_adder
     generic map (N => N)
     port map (
@@ -97,8 +96,7 @@ begin
       Cout => tempCout
     );
 
-  -- Outputs
   F    <= tempSum;
-  Cout <= '0';   -- Lab table expects Cout=0 for all Part A ops
+  Cout <= '0';
 
 end behavioral;
