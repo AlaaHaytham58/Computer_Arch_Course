@@ -11,9 +11,10 @@ port (
 );
 end four_bit_adder;
 architecture structure of four_bit_adder is
-   signal tmp : unsigned(4 downto 0);
+   signal result : unsigned(4 downto 0);
 begin
-  tmp  <= ('0' & unsigned(A)) + ('0' & unsigned(B)) + ("0000" & Cin);
-  Sum  <= std_logic_vector(tmp(3 downto 0));
-  Cout <= tmp(4);
+  result  <= ('0' & unsigned(A)) + ('0' & unsigned(B)) + ("0000" & Cin);
+  Sum  <= std_logic_vector(result(3 downto 0));
+  Cout <= result(4);
+  
 end architecture;

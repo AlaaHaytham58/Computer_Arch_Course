@@ -17,6 +17,7 @@ architecture behavioral of ALU_A is
   signal Ain, Bin : std_logic_vector(N-1 downto 0);
   signal tempSum  : std_logic_vector(N-1 downto 0);
   signal tempCout : std_logic;
+  signal localCin : std_logic; 
 
   component n_adder
     generic (N : integer := 16);
@@ -29,7 +30,6 @@ architecture behavioral of ALU_A is
     );
   end component;
   
-  signal localCin : std_logic; 
 
 begin
   process(A, B, S, Cin)
@@ -38,37 +38,29 @@ begin
     Bin <= (others => '0');
     localCin <= '0';
 
-    case S is
-      -- F=A (Cin=0) or F=A+1 (Cin=1)
-      when "0000" =>
-        Ain <= A;
+   case S is
+      when "0000"  =>
+        Ain<=A;
         Bin <= (others => '0');
         localCin <= Cin;
-
-      -- F=A-B (Cin=0) or F=A-B-1 (Cin=1)
-      when "0001" =>
-        Ain <= A;
-        Bin <= not B;
+      when "0001"  =>
+        Ain<=A;
+        Bin<=not B;
         if Cin = '0' then
           localCin <= '1';   
         else
           localCin <= '0';   
         end if;
-
-      -- F=A-B+1 (Cin=0) or F=A+B+1 (Cin=1)
       when "0010" =>
-        Ain <= A;
-        if Cin = '0' then
-          Bin <= std_logic_vector(unsigned(not B) + 1);
-          localCin <= '1';
-        else
-          Bin <= B;
-          localCin <= '1';  
-        end if;
-
-      -- F=A-1 (Cin=0) or F=B+1 (Cin=1)
+       Ain<=A;
+      if Cin='0' then
+        Bin <= std_logic_vector(unsigned(not B) + 1);        localCin<='1';
+      else
+       Bin<= B;
+       localCin<='1';
+      end if;
       when "0011" =>
-        if Cin = '0' then
+      if Cin = '0' then
           Ain <= A;
           Bin <= (others => '1');
           localCin <= '0';   
@@ -77,16 +69,13 @@ begin
           Bin <= B;
           localCin <= '1'; 
         end if;
-
-      when others =>
+        when others =>
         Ain <= (others => '0');
         Bin <= (others => '0');
         localCin <= '0';
-    end case;
-  end process;
-
-  
-  U_ADDER: n_adder
+end case;
+end process;
+ U_ADDER: n_adder
     generic map (N => N)
     port map (
       A    => Ain,
@@ -97,6 +86,6 @@ begin
     );
 
   F    <= tempSum;
-  Cout <= '0';
+  Cout <= tempCout;
 
 end behavioral;
